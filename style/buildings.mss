@@ -39,7 +39,6 @@
     [man_made = 'room'] {
       polygon-fill: @building-man-made-room;
     }
-
   }
 }
 

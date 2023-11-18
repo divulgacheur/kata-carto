@@ -10,6 +10,8 @@
 @entrance-permissive: darken(@building-line, 15%);
 @entrance-normal: @building-line;
 
+@building-man-made-room: #4770FA;
+
 #buildings {
   [zoom >= 14] {
     polygon-fill: @building-low-zoom;
@@ -34,6 +36,10 @@
         }
       }
     }
+    [man_made = 'room'] {
+      polygon-fill: @building-man-made-room;
+    }
+
   }
 }
 

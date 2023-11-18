@@ -3431,6 +3431,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
   [highway = 'bridleway'],
   [highway = 'footway'],
+  [highway = 'chatiere'],
   [highway = 'cycleway'],
   [highway = 'path'],
   [highway = 'steps'],

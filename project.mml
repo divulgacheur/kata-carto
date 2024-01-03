@@ -2366,3 +2366,23 @@ Layer:
     properties:
       cache-features: true
       minzoom: 15
+  - id: manmade_rooms-text
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            name,
+            ST_PointOnSurface(way) AS way,
+            way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
+          FROM planet_osm_polygon
+          WHERE ST_PointOnSurface(way) && !bbox!
+            AND name IS NOT NULL
+            AND man_made IS NOT NULL
+            AND man_made IN ('room')
+            AND way_area < 4000000*POW(!scale_denominator!*0.001*0.28,2)
+          ORDER BY way_area DESC
+        ) AS manmade_rooms_text
+    properties:
+      minzoom: 14

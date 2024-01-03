@@ -74,3 +74,18 @@ no official postal addresses) */
     text-line-spacing: -1.65; // -0.15 em
   }
 }
+
+
+#manmade_rooms-text {
+  [zoom >= 14][way_pixels > 3000],
+  [zoom >= 17] {
+    text-name: "[name]";
+    text-face-name: @book-fonts;
+    text-fill: #444;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+    text-size: 11;
+    text-wrap-width: 22; // 2.0 em
+    text-line-spacing: -1.65; // -0.15 em
+  }
+}

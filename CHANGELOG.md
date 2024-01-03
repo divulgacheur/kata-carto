@@ -1,4 +1,59 @@
-## [Unreleased](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.4.0...master)
+## [Unreleased](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.8.0...master)
+
+## [v5.8.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.7.0...v5.8.0) - 2023-11-26
+### Changes
+- Changing color of leisure=pitch to be more distinct and less similar to the water color (#4480)
+- Fixing color of ref label for railway=subway_entrance (#4835)
+- Fixes for highway=mini_roundabout rendering on various road types (#4904)
+- Fixing merge error in previous change of rendering natural=bay/natural=strait (#4841)
+- Removing point symbol rendering for golf=hole (#4857)
+- Restoring rendering for railway=platform + covered=yes (#4797)
+- Adding rendering of roller_coaster=track (#4666)
+- Adding rendering of landuse=flowerbed (#4889)
+
+## [v5.7.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.6.2...v5.7.0) - 2023-01-11
+### Changes
+- Unpaved roads are now indicated on the map (#3399)
+- Country label placement improved, particularly for countries in the north (#4616)
+- Added elevation to wilderness huts (#4648)
+- New index for low-zoom performance (#4617)
+- Added a script to switch between script variations for CJK languages (#4707)
+- Ordering fixes for piers (#4703)
+- Numerous CI improvements
+
+## [v5.6.2](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.6.1...v5.6.2) - 2022-11-10
+### Changes
+- Locally installed fonts fixed (#4672)
+
+## [v5.6.1](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.6.0...v5.6.1) - 2022-08-12
+### Changes
+- Rendering of water areas on zooms 0 to 4 fixed (#4640)
+
+## [v5.6.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.5.1...v5.6.0) - 2022-08-03
+### Major Changes
+- The style now uses locally installed fonts, using `scripts/get-fonts.sh` to download the fonts.
+
+### Changes
+- Code and performance improvements (#4591, #4601)
+- Recommend disabling PostgreSQL JIT for rendering (#4592)
+- Change tree and tree row colours to the same colour as areas with trees (#4448)
+- Don't label public transport shelters with elevation (#4313)
+- Update code of conduct to explicitly prohibit doxxing (#4554)
+- Add parcel lockers (#4512)
+- Render name labels of bays and straights from z14 only, and lakes from z5 (#3750)
+
+## [v5.5.1](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.5.0...v5.5.1) - 2022-07-13
+### Changes
+- Fix unintentional colour change of gates
+
+## [v5.5.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.4.0...v5.5.0) - 2022-07-09
+### Changes
+- Fixed colour mismatch of car repair shop icon and text (#4535)
+- Cleaned up SVG files to better align with Mapnik requirements (#4457)
+- Allow Docker builds on ARM machines (e.g. new Apple laptops) (#4539)
+- Allow file:// URLs in external data config and caching of downloaded files (#4468, #4153, #4584)
+- Render mountain passes (#4121)
+- Don't use a cross symbol for more Christian denominations that don't use a cross (#4587)
 
 ## [v5.4.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.3.1...v5.4.0) - 2021-09-22
 ### Changes

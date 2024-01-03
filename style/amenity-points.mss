@@ -40,6 +40,8 @@
 @standard-line-spacing-size: -1.5; // -0.15 em
 @standard-font: @book-fonts;
 
+@private-opacity: 0.33;
+
 #amenity-points {
   [feature = 'tourism_alpine_hut'][zoom >= 13],
   [feature = 'tourism_wilderness_hut'][zoom >= 13],
@@ -56,8 +58,8 @@
     }
     marker-fill: @accommodation-icon;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -127,8 +129,8 @@
     marker-file: url('symbols/amenity/bbq.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -145,22 +147,22 @@
   }
 
   [feature = 'highway_bus_stop'] {
-    [zoom >= 16] {
+    [zoom >= 16][zoom < 17] {
       marker-file: url('symbols/square.svg');
       marker-fill: @transportation-icon;
       marker-width: 6;
       marker-clip: false;
     }
     [zoom >= 17] {
-      marker-file: url('symbols/highway/bus_stop.12.svg');
-      marker-width: 12;
+      marker-file: url('symbols/highway/bus_stop.svg');
+      marker-fill: @transportation-icon;
+      marker-clip: false;
     }
   }
 
   [feature = 'highway_elevator'][zoom >= 18] {
-    [access = null],
-    [access = 'yes'] {
-      marker-file: url('symbols/highway/elevator.12.svg');
+    [int_access = 'yes'] {
+      marker-file: url('symbols/highway/elevator.svg');
       marker-fill: @transportation-icon;
     }
   }
@@ -191,8 +193,20 @@
     marker-clip: false;
   }
 
+  [feature = 'amenity_parcel_locker'][zoom >= 17] {
+    marker-fill: @amenity-brown;
+    [zoom >= 17][zoom < 18] {
+      marker-width: 4;
+      marker-line-width: 0;
+    }
+    [zoom >= 18] {
+      marker-file: url('symbols/amenity/parcel_locker.svg');
+      marker-clip: false;
+    }
+  }
+
   [feature = 'highway_traffic_signals'][zoom >= 17] {
-    marker-file: url('symbols/highway/traffic_light.13.svg');
+    marker-file: url('symbols/highway/traffic_light.svg');
     marker-fill: #545454;
     marker-clip: false;
   }
@@ -307,8 +321,8 @@
     marker-file: url('symbols/amenity/charging_station.svg');
     marker-fill: @transportation-icon;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -334,8 +348,8 @@
     marker-file: url('symbols/amenity/bicycle_repair_station.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -417,8 +431,8 @@
     marker-file: url('symbols/amenity/shower.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -610,7 +624,11 @@
     marker-clip: false;
     [religion = 'christian'] {
       marker-file: url('symbols/religion/christian.svg');
-      [denomination = 'jehovahs_witness']{
+      // Some Christian denominations do not use a cross, so reset them to the default marker
+      [denomination = 'jehovahs_witness'],
+      [denomination = 'la_luz_del_mundo'],
+      [denomination = 'iglesia_ni_cristo'],
+      [denomination = 'mormon'] {
         marker-file: url('symbols/amenity/place_of_worship.svg');
       }
     }
@@ -673,8 +691,8 @@
     marker-file: url('symbols/amenity/recycling.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -703,13 +721,13 @@
   }
 
   [feature = 'amenity_toilets'] {
-    [access = 'yes'][zoom >= 18],
+    [int_access = 'yes'][zoom >= 18],
     [zoom >= 19] {
       marker-file: url('symbols/amenity/toilets.svg');
       marker-fill: @amenity-brown;
       marker-clip: false;
-      [access != ''][access != 'permissive'][access != 'yes'] {
-        marker-opacity: 0.33;
+      [int_access = 'restricted'] {
+        marker-opacity: @private-opacity;
       }
     }
   }
@@ -718,8 +736,8 @@
     marker-file: url('symbols/amenity/drinking_water.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1023,7 +1041,6 @@
 
     [shop = 'car_repair'][zoom >= 18] {
       marker-file: url('symbols/shop/car_repair.svg');
-      marker-fill: @amenity-brown;
     }
 
     [shop = 'dairy'][zoom >= 18] {
@@ -1073,6 +1090,10 @@
       marker-file: url('symbols/shop/optician.svg');
     }
 
+    [shop = 'hearing_aids'][zoom >= 18] {
+      marker-file: url('symbols/shop/hearing_aids.svg');
+    }
+
     [shop = 'outdoor'][zoom >= 18] {
       marker-file: url('symbols/shop/outdoor.svg');
     }
@@ -1099,7 +1120,7 @@
     }
 
     [shop = 'motorcycle'][zoom >= 18] {
-      marker-file: url('symbols/motorcycle.svg');
+      marker-file: url('symbols/shop/motorcycle.svg');
     }
 
     [shop = 'music'][zoom >= 18] {
@@ -1182,7 +1203,7 @@
   }
 
   [feature = 'advertising_column'][zoom >= 19]{
-      marker-file: url('symbols/advertising_column.svg');
+      marker-file: url('symbols/amenity/advertising_column.svg');
       marker-fill: @advertising-grey;
       marker-clip: false;
   }
@@ -1220,8 +1241,8 @@
     marker-file: url('symbols/leisure/fitness.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1235,8 +1256,8 @@
     marker-file: url('symbols/leisure/playground.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1256,8 +1277,8 @@
     marker-file: url('symbols/tourism/picnic.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1265,8 +1286,8 @@
     marker-file: url('symbols/tourism/picnic.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1274,8 +1295,8 @@
     marker-file: url('symbols/leisure/firepit.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
@@ -1335,18 +1356,18 @@
   }
 
   [feature = 'aeroway_helipad'][zoom >= 16] {
-    marker-file: url('symbols/helipad.16.svg');
+    marker-file: url('symbols/amenity/helipad.svg');
     marker-clip: false;
     marker-fill: @airtransport;
   }
 
-  [feature = 'aeroway_aerodrome']['access' != 'private']['icao' != null]['iata' != null][zoom >= 10][zoom < 17],
-  [feature = 'aeroway_aerodrome']['access' = 'private'][zoom >= 12][zoom < 18],
+  [feature = 'aeroway_aerodrome']['int_access' = 'yes']['icao' != null]['iata' != null][zoom >= 10][zoom < 17],
+  [feature = 'aeroway_aerodrome']['int_access' = 'restricted'][zoom >= 12][zoom < 18],
   [feature = 'aeroway_aerodrome']['icao' = null][zoom >= 12][zoom < 18],
   [feature = 'aeroway_aerodrome']['iata' = null][zoom >= 12][zoom < 18] {
     [way_pixels <= 192000],
     [way_pixels = null] {
-      marker-file: url('symbols/aerodrome.12.svg');
+      marker-file: url('symbols/amenity/aerodrome.svg');
       marker-clip: false;
       marker-fill: @airtransport;
     }
@@ -1382,8 +1403,15 @@
     marker-clip: false;
   }
 
+  [feature = 'mountain_pass'][zoom >= 15] {
+    marker-file: url('symbols/natural/saddle.svg');
+    marker-fill: @transportation-icon;
+    marker-clip: false;
+  }
+
   [feature = 'natural_spring'][zoom >= 14] {
-    marker-file: url('symbols/spring.svg');
+    marker-file: url('symbols/natural/spring.svg');
+    marker-fill: #7abcec;
     marker-clip: false;
   }
 
@@ -1397,14 +1425,14 @@
     [zoom >= 14][height > 10],
     [zoom >= 15][name != null],
     [zoom >= 16] {
-      marker-file: url('symbols/waterfall.svg');
+      marker-file: url('symbols/natural/waterfall.svg');
       marker-clip: false;
       marker-fill: @water-text;
     }
   }
 
   [feature = 'military_bunker'][zoom >= 17] {
-    marker-file: url('symbols/bunker.svg');
+    marker-file: url('symbols/man_made/bunker.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
   }
@@ -1413,7 +1441,7 @@
     [zoom >= 15][location != 'rooftop'][location != 'roof'],
     [zoom >= 15][location = null],
     [zoom >= 19] {
-      marker-file: url('symbols/generator_wind.svg');
+      marker-file: url('symbols/man_made/generator_wind.svg');
       marker-fill: @man-made-icon;
       marker-clip: false;
     }
@@ -1433,9 +1461,7 @@
 
   // waste_disposal tagging on ways - tagging on nodes is defined later
   [feature = 'amenity_waste_disposal'][zoom >= 19] {
-    [access = null],
-    [access = 'permissive'],
-    [access = 'yes'] {
+    [int_access = 'yes'] {
       marker-file: url('symbols/amenity/waste_disposal.svg');
       marker-fill: @man-made-icon;
     }
@@ -1459,7 +1485,7 @@
       [feature = 'amenity_parking_entrance']["parking"='multi-storey'] { marker-file: url('symbols/amenity/parking_entrance_multistorey.svg'); }
       marker-clip: false;
       marker-fill: @transportation-icon;
-      [access != ''][access != 'permissive'][access != 'yes'] { marker-opacity: 0.33; }
+      [int_access = 'restricted'] { marker-opacity: @private-opacity; }
     }
   }
 }
@@ -1480,9 +1506,11 @@
 
   [feature = 'railway_level_crossing'][zoom >= 14]::railway,
   [feature = 'railway_crossing'][zoom >= 15]::railway{
-    marker-file: url('symbols/level_crossing.svg');
+    marker-file: url('symbols/barrier/level_crossing.svg');
+    marker-fill: #4d4d4d;
+    marker-clip: false;
     [zoom >= 16] {
-      marker-file: url('symbols/level_crossing2.svg');
+      marker-file: url('symbols/barrier/level_crossing2.svg');
     }
   }
 
@@ -1554,24 +1582,22 @@
   [feature = 'amenity_bench'][zoom >= 19]::amenity {
     marker-file: url('symbols/amenity/bench.svg');
     marker-fill: @man-made-icon;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
   [feature = 'amenity_waste_basket'][zoom >= 19]::amenity {
     marker-file: url('symbols/amenity/waste_basket.svg');
     marker-fill: @man-made-icon;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      marker-opacity: 0.33;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
     }
   }
 
   // waste_disposal tagging on nodes - tagging on ways is defined earlier
   [feature = 'amenity_waste_disposal'][zoom >= 19]::amenity {
-    [access = null],
-    [access = 'permissive'],
-    [access = 'yes'] {
+    [int_access = 'yes'] {
       marker-file: url('symbols/amenity/waste_disposal.svg');
       marker-fill: @man-made-icon;
     }
@@ -1795,8 +1821,8 @@
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    [access != ''][access != 'permissive'][access != 'yes'] {
-      text-opacity: 0.33;
+    [int_access = 'restricted'] {
+      text-opacity: @private-opacity;
       text-halo-radius: 0;
     }
   }
@@ -1830,6 +1856,7 @@
   [feature = 'natural_peak'][zoom >= 13],
   [feature = 'natural_volcano'][zoom >= 13],
   [feature = 'natural_saddle'][zoom >= 15],
+  [feature = 'mountain_pass'][zoom >= 15],
   [feature = 'tourism_viewpoint'][zoom >= 16] {
     text-name: "[name]";
     text-size: @standard-font-size;
@@ -1837,6 +1864,7 @@
     text-line-spacing: @standard-line-spacing-size;
     text-fill: darken(@landform-color, 30%);
     [feature = 'natural_volcano'] { text-fill: #d40000; }
+    [feature = 'mountain_pass'] { text-fill: @transportation-text; }
     text-dy: 7;
     [feature = 'tourism_viewpoint'] { text-dy: 11; }
     text-face-name: @standard-font;
@@ -1855,18 +1883,18 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'tourism_information'][zoom >= 19],
-  [feature = 'tourism_information']["information"='office'][zoom >= 17] {
-      text-name: "[name]";
-      text-size: @standard-font-size;
-      text-wrap-width: @standard-wrap-width;
-      text-line-spacing: @standard-line-spacing-size;
-      text-fill: darken(black, 30%);
-      [information = 'office'] { text-fill: @amenity-brown; }
-      text-face-name: @standard-font;
-      text-halo-radius: @standard-halo-radius;
-      text-halo-fill: @standard-halo-fill;
-      text-dy: 11;
+  [feature = 'tourism_information'][information != 'board'][zoom >= 19],
+  [feature = 'tourism_information'][information = 'office'][zoom >= 17] {
+    text-name: "[name]";
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: darken(black, 30%);
+    [information = 'office'] { text-fill: @amenity-brown; }
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+    text-dy: 11;
   }
 
   [feature = 'waterway_waterfall'] {
@@ -2034,7 +2062,7 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
-      [access != ''][access != 'permissive'][access != 'yes'] {
+      [int_access = 'restricted'] {
         text-fill: darken(@park, 50%);
       }
     }
@@ -2135,7 +2163,6 @@
   [feature = 'natural_wetland'],
   [feature = 'natural_mud'],
   [feature = 'leisure_park'],
-  [feature = 'leisure_recreation_ground'],
   [feature = 'landuse_recreation_ground'],
   [feature = 'landuse_village_green'],
   [feature = 'leisure_garden'],
@@ -2187,8 +2214,8 @@
   [feature = 'leisure_pitch'] {
     [zoom >= 10][way_pixels > 3000][is_building = 'no'],
     [zoom >= 17][is_building = 'no'],
-    [zoom >= 10][way_pixels > 3000][shop = 'mall'],
-    [zoom >= 17][shop = 'mall'] {
+    [zoom >= 10][way_pixels > 3000][feature = 'shop'][shop = 'mall'],
+    [zoom >= 17][feature = 'shop'][shop = 'mall'] {
       text-name: "[name]";
       text-size: @landcover-font-size;
       text-wrap-width: @landcover-wrap-width-size;
@@ -2213,7 +2240,6 @@
         text-fill: @wetland-text;
       }
       [feature = 'leisure_park'],
-      [feature = 'leisure_recreation_ground'],
       [feature = 'landuse_recreation_ground'],
       [feature = 'landuse_village_green'],
       [feature = 'leisure_garden'] {
@@ -2246,7 +2272,6 @@
       [feature = 'landuse_farmyard'] {
         text-fill: darken(@farmyard, 50%);
       }
-      [feature = 'landuse_farm'],
       [feature = 'landuse_farmland'],
       [feature = 'landuse_greenhouse_horticulture'] {
         text-fill: darken(@farmland, 50%);
@@ -2305,8 +2330,8 @@
       [feature = 'leisure_fitness_centre'],
       [feature = 'leisure_fitness_station'] {
         text-fill: @leisure-green;
-        [access != ''][access != 'permissive'][access != 'yes'] {
-          text-opacity: 0.33;
+        [int_access = 'restricted'] {
+          text-opacity: @private-opacity;
           text-halo-radius: 0;
         }
       }
@@ -2334,7 +2359,7 @@
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
-    text-dy: 6;
+    text-dy: 7;
   }
 
   [feature = 'amenity_atm'][zoom >= 19],
@@ -2399,8 +2424,8 @@
     [feature = 'tourism_alpine_hut'],
     [feature = 'tourism_wilderness_hut'],
     [feature = 'amenity_shelter'] {
-      [access != ''][access != 'permissive'][access != 'yes'] {
-        text-opacity: 0.33;
+      [int_access = 'restricted'] {
+        text-opacity: @private-opacity;
         text-halo-radius: 0;
       }
     }
@@ -2435,8 +2460,8 @@
       [feature = 'highway_bus_stop'] {
         text-dy: 9;
       }
-      [access != ''][access != 'permissive'][access != 'yes'] {
-        text-opacity: 0.33;
+      [int_access = 'restricted'] {
+        text-opacity: @private-opacity;
         text-halo-radius: 0;
       }
     }
@@ -2507,8 +2532,7 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'amenity_hospital'][zoom >= 16],
-  [feature = 'healthcare_hospital'][zoom >= 16] {
+  [feature = 'amenity_hospital'][zoom >= 16] {
     text-name: "[name]";
     text-fill: @health-color;
     text-size: @standard-font-size;
@@ -2525,27 +2549,7 @@
   [feature = 'amenity_pharmacy'],
   [feature = 'amenity_doctors'],
   [feature = 'amenity_dentist'],
-  [feature = 'amenity_veterinary'],
-  [feature = 'healthcare_alternative'],
-  [feature = 'healthcare_audiologist'],
-  [feature = 'healthcare_birthing_center'],
-  [feature = 'healthcare_blood_bank'],
-  [feature = 'healthcare_blood_donation'],
-  [feature = 'healthcare_centre'],
-  [feature = 'healthcare_clinic'],
-  [feature = 'healthcare_dentist'],
-  [feature = 'healthcare_dialysis'],
-  [feature = 'healthcare_doctor'],
-  [feature = 'healthcare_laboratory'],
-  [feature = 'healthcare_midwife'],
-  [feature = 'healthcare_occupational_therapist'],
-  [feature = 'healthcare_optometrist'],
-  [feature = 'healthcare_physiotherapist'],
-  [feature = 'healthcare_podiatrist'],
-  [feature = 'healthcare_psychotherapist'],
-  [feature = 'healthcare_rehabilitation'],
-  [feature = 'healthcare_speech_therapist'],
-  [feature = 'healthcare_yes'] {
+  [feature = 'amenity_veterinary'] {
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2600,9 +2604,6 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: rgba(255, 255, 255, 0.6);
-      [shop = 'car_repair'] {
-        text-fill: @amenity-brown;
-      }
       [shop = 'massage'] {
         text-fill: @leisure-green;
       }
@@ -2861,8 +2862,8 @@
     text-halo-fill: @standard-halo-fill;
   }
 
-  [feature = 'aeroway_aerodrome']['access' != 'private']['icao' != null]['iata' != null][zoom >= 11][zoom < 17],
-  [feature = 'aeroway_aerodrome']['access' = 'private'][zoom >= 13][zoom < 18],
+  [feature = 'aeroway_aerodrome']['int_access' = 'yes']['icao' != null]['iata' != null][zoom >= 11][zoom < 17],
+  [feature = 'aeroway_aerodrome']['int_access' = 'restricted'][zoom >= 13][zoom < 18],
   [feature = 'aeroway_aerodrome']['icao' = null][zoom >= 13][zoom < 18],
   [feature = 'aeroway_aerodrome']['iata' = null][zoom >= 13][zoom < 18] {
     [way_pixels <= 192000],
@@ -2956,13 +2957,25 @@
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
-      [access != ''][access != 'permissive'][access != 'yes'] {
-        text-opacity: 0.33;
+      [int_access = 'restricted'] {
+        text-opacity: @private-opacity;
         text-halo-radius: 0;
       }
       [feature = 'amenity_bicycle_parking'],
       [feature = 'amenity_motorcycle_parking'] { text-dy: 12; }
     }
+  }
+
+  [feature = 'amenity_parcel_locker'][zoom >= 18] {
+    text-name: "[name]";
+    text-dy: 10;
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: @amenity-brown;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
   }
 }
 
@@ -3064,9 +3077,9 @@
 
 #trees [zoom >= 16] {
   ::canopy {
-    opacity: 0.3;
+    opacity: 0.6;
     [natural = 'tree_row'] {
-      line-color: green;
+      line-color: darken(@forest,10%);
       line-cap: round;
       line-width: 2.5;
       [zoom >= 17] {
@@ -3083,11 +3096,17 @@
       }
     }
     [natural = 'tree'] {
+      marker-fill: darken(@forest,10%);
+      marker-allow-overlap: true;
+      marker-line-width: 0;
+      marker-ignore-placement: true;
+      marker-width: 2.5;
+      marker-height: 2.5;
+      [zoom >= 17] {
+        marker-width: 5;
+        marker-height: 5;
+      }
       [zoom >= 18] {
-        marker-fill: green;
-        marker-allow-overlap: true;
-        marker-line-width: 0;
-        marker-ignore-placement: true;
         marker-width: 10;
         marker-height: 10;
       }
@@ -3103,7 +3122,8 @@
   }
   [natural = 'tree']::trunk {
     [zoom >= 18] {
-      trunk/marker-fill: #b27f36;
+      trunk/opacity: 0.4;
+      trunk/marker-fill: #6b8d5e; // Same opacity and color as forest svg patterns
       trunk/marker-allow-overlap: true;
       trunk/marker-line-width: 0;
       trunk/marker-width: 2;

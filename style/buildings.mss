@@ -36,9 +36,12 @@
         }
       }
     }
-    [man_made = 'room'] {
-      polygon-fill: @building-man-made-room;
-    }
+  }
+}
+
+#manmade_rooms {
+  [zoom >= 14] {
+    polygon-fill: @building-man-made-room;
   }
 }
 

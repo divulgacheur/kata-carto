@@ -156,7 +156,6 @@ regular text and can be used for emphasis. Fallback is a regular style.
                 "Noto Sans Sinhala UI Bold",
                 "Noto Sans Sundanese Bold",
                 "Noto Sans Symbols Bold",
-                "Noto Sans Syriac Black",
                 "Noto Sans Tai Tham Bold",
                 "Noto Sans Tamil UI Bold",
                 "Noto Sans Telugu UI Bold",
@@ -165,7 +164,6 @@ regular text and can be used for emphasis. Fallback is a regular style.
                 "Noto Sans CJK JP Bold",
 
                 "Noto Serif Tibetan Bold",
-                "Noto Emoji Bold",
 
                 @book-fonts;
 

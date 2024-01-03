@@ -35,7 +35,22 @@
   }
 }
 
-#water-lines-casing {
+#water-lines-low-zoom {
+  [waterway = 'river'][zoom >= 8][zoom < 12] {
+    [int_intermittent = 'yes'] {
+      line-dasharray: 8,4;
+      line-cap: butt;
+      line-join: round;
+      line-clip: false;
+    }
+    line-color: @water-color;
+    line-width: 0.7;
+    [zoom >= 9] { line-width: 1.2; }
+    [zoom >= 10] { line-width: 1.6; }
+  }
+}
+
+#water-lines::casing {
   [waterway = 'stream'],
   [waterway = 'ditch'],
   [waterway = 'drain'] {
@@ -55,21 +70,6 @@
         }
       }
     }
-  }
-}
-
-#water-lines-low-zoom {
-  [waterway = 'river'][zoom >= 8][zoom < 12] {
-    [int_intermittent = 'yes'] {
-      line-dasharray: 8,4;
-      line-cap: butt;
-      line-join: round;
-      line-clip: false;
-    }
-    line-color: @water-color;
-    line-width: 0.7;
-    [zoom >= 9] { line-width: 1.2; }
-    [zoom >= 10] { line-width: 1.6; }
   }
 }
 
@@ -287,21 +287,16 @@
 #text-poly-low-zoom[zoom < 10],
 #text-point[zoom >= 10] {
   [feature = 'natural_water'],
-  [feature = 'natural_bay'],
-  [feature = 'natural_strait'],
   [feature = 'landuse_reservoir'],
   [feature = 'landuse_basin'],
   [feature = 'waterway_dock'] {
-    [zoom >= 0][way_pixels > 3000][way_pixels <= 768000],
-    [zoom >= 14][way_pixels <= 768000][feature = 'natural_bay'],
-    [zoom >= 14][way_pixels <= 768000][feature = 'natural_strait'],
+    [zoom >= 5][way_pixels > 3000][way_pixels <= 768000],
     [zoom >= 17][way_pixels <= 768000] {
       text-name: "[name]";
       text-size: 10;
       text-wrap-width: 25; // 2.5 em
       text-line-spacing: -1.5; // -0.15 em
-      [way_pixels > 12000],
-      [zoom >= 15][feature = 'natural_strait'] {
+      [way_pixels > 12000] {
         text-size: 12;
         text-wrap-width: 37; // 3.1 em
         text-line-spacing: -1.6; // -0.13 em
@@ -321,6 +316,26 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
       text-placement: interior;
+    }
+  }
+}
+
+#text-point[zoom >= 14] {
+  [feature = 'natural_bay'],
+  [feature = 'natural_strait'] {
+    text-name: "[name]";
+    text-size: 10;
+    text-wrap-width: 25; // 2.5 em
+    text-line-spacing: -1.5; // -0.15 em
+    text-fill: @water-text;
+    text-face-name: @oblique-fonts;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
+    text-placement: interior;
+    [zoom >= 15] {
+      text-size: 12;
+      text-wrap-width: 37; // 3.1 em
+      text-line-spacing: -1.6; // -0.13 em
     }
   }
 }

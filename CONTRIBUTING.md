@@ -34,7 +34,7 @@ images might not be sufficient and a demo layer is necessary. pnorman has a serv
 
 ## Easy pickings
 
-Some [easy issues](https://github.com/gravitystorm/openstreetmap-carto/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) have been selected
+Some [easy issues](https://github.com/gravitystorm/openstreetmap-carto/labels/good%20first%20issue) have been selected
 that are particularly suitable for new contributors to get familiar with the project's code base and the contribution process.
 
 ## Editing layers
@@ -148,8 +148,8 @@ Because SQL within JSON or YAML will not generally be syntax highlighted, indent
 ### External icon design resources
 The project's goals and design philsophy are different from other projects, but some external resources with general information about icon design are:
 
-* [Maki Icons Design Guidelines](https://www.mapbox.com/maki-icons/guidelines/)
-* [GNOME Icon Design Guildelines](https://developer.gnome.org/hig/stable/icons-and-artwork.html.en)
+* [Maki Icons Design Guidelines](https://labs.mapbox.com/maki-icons/guidelines/)
+* [GNOME Icon Design Guildelines](https://developer.gnome.org/hig/guidelines/ui-icons.html)
 
 ## Typography
 
@@ -193,3 +193,11 @@ to be rendered without collisions. But the line spacing is too large for
 cartographic usage; therefore we reduce the line spacing. Currently, the
 line spacing ranges from -0.15 em to -0.05 em. (Even at -0.15 em, collisions
 are seldom and even then the text stays legible).
+
+## Syntax highlighting
+
+Most of the style development happens within CartoCSS MSS and MML files. Syntax highlighting can make editing more pleasant.
+
+Editors based on KDE Frameworks (Kate, KWrite, KDevelop…) provide syntax highlighting for CartoCSS MSS out-of-the-box, and starting with KF 5.100 also for CartoCSS MML including SQL highlighting within the YAML structure.
+
+Also, Yohan Boniface [has developed](https://github.com/yohanboniface/carto-atom) highlighting for CartoCSS MSS for editors that use the TextMate Language Grammar for syntax highlighting: Atom (install package “language-carto”), Visual Studio Code, Jetbrains…

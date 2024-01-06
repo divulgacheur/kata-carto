@@ -39,12 +39,6 @@
   }
 }
 
-#manmade_rooms {
-  [zoom >= 14] {
-    polygon-fill: @building-man-made-room;
-  }
-}
-
 #bridge {
   [zoom >= 12] {
     polygon-fill: #B8B8B8;

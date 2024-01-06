@@ -971,3 +971,9 @@
     text-spacing: 400;
   }
 }
+
+#manmade_rooms {
+  [zoom >= 14] {
+    polygon-fill: @building-man-made-room;
+  }
+}

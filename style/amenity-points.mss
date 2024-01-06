@@ -230,6 +230,21 @@
     marker-fill: @memorials;
   }
 
+   [feature = 'man_made_manhole'][zoom >= 16] {
+    [int_access = 'restricted'] {
+      marker-file: url('symbols/man_made/manhole.svg');
+      marker-fill: #ff2503; // red
+    }
+    [int_access = 'sure'] {
+      marker-file: url('symbols/man_made/manhole.svg');
+      marker-fill: #03ff12; // green
+    }
+    [int_access = 'yes'] {
+      marker-file: url('symbols/man_made/manhole.svg');
+      marker-fill: #f9f520; // yellow
+    }
+  } 
+
   [feature = 'tourism_camp_site'][zoom >= 16] {
     marker-file: url('symbols/tourism/camping.svg');
     marker-fill: @accommodation-icon;

@@ -438,7 +438,6 @@ Layer:
             amenity,
             aeroway,
             aerialway,
-            man_made,
             tags->'public_transport' as public_transport
           FROM planet_osm_polygon
           WHERE building IS NOT NULL
